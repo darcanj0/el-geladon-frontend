@@ -120,7 +120,7 @@ async function createPaleta() {
 }
 
 function abrirModalDelete(id) {
-  console.log(`Abri o modal delete com o id ${id}`);
+  // console.log(`Abri o modal delete com o id ${id}`);
   document.querySelector("#overlay-delete").style.display = "flex";
 
   document.querySelector(".btns_delete").insertAdjacentHTML(
@@ -140,7 +140,7 @@ function fecharModalDelete() {
 }
 
 async function deletePaleta(id) {
-  console.log(`Vou deletar a de id ${id}`);
+  // console.log(`Vou deletar a de id ${id}`);
   const response = await fetch(`${baseURL}/delete/${id}`, {
     method: "delete",
     mode: "cors",
