@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:3001/paletas";
+const baseURL = "https://el-geladon-api-v1.onrender.com/paletas";
 
 async function findAllPaletas() {
   const response = await fetch(`${baseURL}/find-paletas`);
