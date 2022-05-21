@@ -436,3 +436,15 @@ textarea {
   background-color: #0bb614;
   color: #ffffff;
 }
+
+.modal-body-alert{
+  height: 236px;
+  display: flex;
+  align-items: center;
+}
+
+#alert-message {
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
+}

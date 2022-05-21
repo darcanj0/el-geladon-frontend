@@ -35,9 +35,15 @@ const findByIdPaletas = async () => {
 
   const paleta = await response.json();
 
-  const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
+  if (paleta.message) {
+    const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
+    paletaEscolhidaDiv.innerHTML = "";
+    document.getElementById("idPaleta").value = "";
+    abrirModalAlerta(paleta.message);
+  } else {
+    const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
 
-  paletaEscolhidaDiv.innerHTML = `<div class="PaletaCardItem">
+    paletaEscolhidaDiv.innerHTML = `<div class="PaletaCardItem">
         <div>
             <div class="PaletaCardItem__sabor"> ${paleta.sabor}</div>
             <div class="PaletaCardItem__preco">R$ ${paleta.preco}</div>
@@ -47,6 +53,7 @@ const findByIdPaletas = async () => {
               paleta.foto
             } alt=${`Paleta de ${paleta.sabor}`}/>
     </div>`;
+  }
 };
 
 async function abrirModal(id = 0) {
@@ -111,6 +118,10 @@ async function createPaleta() {
   });
 
   const novaPaleta = await response.json();
+  console.log(novaPaleta.message);
+  if (novaPaleta.message) {
+    abrirModalAlerta(novaPaleta.message);
+  }
 
   document.querySelector("#paletaList").innerHTML = "";
   findAllPaletas();
@@ -140,14 +151,29 @@ function fecharModalDelete() {
 }
 
 async function deletePaleta(id) {
-  // console.log(`Vou deletar a de id ${id}`);
   const response = await fetch(`${baseURL}/delete/${id}`, {
     method: "delete",
     mode: "cors",
   });
-  // const result = await response.json();
-  // console.log(result);
+  const result = await response.json();
+  let alerta = await result.message;
+  abrirModalAlerta(alerta);
+  console.log(alerta);
   fecharModalDelete();
   document.getElementById("paletaList").innerHTML = "";
   findAllPaletas();
+}
+
+function abrirModalAlerta(message){
+  document.getElementById("overlay-alerts").style.display = "flex";
+  document.getElementById("alert-message").innerHTML = message;
+  setTimeout(function(){
+    fecharModalAlerta();
+  }, 3000)
+}
+
+
+function fecharModalAlerta(){
+  document.getElementById("alert-message").innerHTML = "";
+  document.getElementById("overlay-alerts").style.display = "none";
 }
