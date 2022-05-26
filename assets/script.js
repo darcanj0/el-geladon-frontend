@@ -1,67 +1,133 @@
-const baseURL = "https://el-geladon-api-v1.onrender.com/paletas";
+// const baseURL = "https://el-geladon-api-v1.onrender.com/paletas";
+const baseURL = "http://localhost:3001/paletas";
+let arrayPaletas = [];
 
-async function findAllPaletas() {
+const fetchAllPaletasAndUpdateArray = async () => {
   const response = await fetch(`${baseURL}/find-paletas`);
 
   const paletas = await response.json();
+
+  if(paletas.message != undefined){
+    //tratar erro de não achar nenhuma paleta no db(mensagem vem da api)
+    showAlertSpan(paletas.message, "danger");
+  }
+
+  listaDePaletas = paletas;
+
+  return paletas;
+}
+
+const printAllPaletas = async() => {
+  const paletas = await fetchAllPaletasAndUpdateArray();
+
+  document.getElementById("avaliablePaletas").style.display = "flex";
+  document.getElementById("searchResult").style.display = "none";
+  document.querySelector("#paletaList").innerHTML = "";
 
   paletas.forEach(function (paleta) {
     document.querySelector("#paletaList").insertAdjacentHTML(
       "beforeend",
       `
-        <div class="PaletaListaItem">
+        <div class="PaletaListItem">
           <div>
-            <div class="PaletaListaItem__sabor">${paleta.sabor}</div>
-            <div class="PaletaListaItem__preco">RS ${paleta.preco}</div>
-            <div class="PaletaListaItem__descricao">${paleta.descricao}</div>
-            <div class="PaletaListaItem__acoes Acoes">
-              <button class="Acoes__editar btn" onclick="abrirModal(${paleta.id})">Editar</button>
-              <button class="Acoes__apagar btn" onclick="abrirModalDelete(${paleta.id})">Apagar</button>
+            <div class="PaletaListItemSabor">${paleta.sabor}</div>
+            <div class="PaletaListItemPreco">RS ${paleta.preco.toFixed(2)}</div>
+            <div class="PaletaListItemDescricao">${paleta.descricao}</div>
+            <div class="PaletaListItemActions Actions">
+              <button class="ActionsEdit Btn" onclick="openModal('${paleta._id}')">Editar</button>
+              <button class="ActionsDelete Btn" onclick="openDeleteModal('${paleta._id}')">Apagar</button>
             </div>
           </div>
-          <img class="PaletaListaItem__foto" src=${paleta.foto} alt="Paleta de ${paleta.sabor}" />
+          <img class="PaletaListItemFoto" src=${paleta.foto} alt="Paleta de ${paleta.sabor}" />
         </div>
     `
     );
   });
 }
 
-findAllPaletas();
+printAllPaletas();
 
-const findByIdPaletas = async () => {
-  const id = document.getElementById("idPaleta").value;
+const findPaletaByName = async () => {
+  const paletaName = document.getElementById("namePaleta").value;
 
-  const response = await fetch(`${baseURL}/find-paleta/${id}`);
-
-  const paleta = await response.json();
-
-  if (paleta.message) {
-    const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
-    paletaEscolhidaDiv.innerHTML = "";
-    document.getElementById("idPaleta").value = "";
-    abrirModalAlerta(paleta.message);
-  } else {
-    const paletaEscolhidaDiv = document.getElementById("paletaEscolhida");
-
-    paletaEscolhidaDiv.innerHTML = `<div class="PaletaCardItem">
-        <div>
-            <div class="PaletaCardItem__sabor"> ${paleta.sabor}</div>
-            <div class="PaletaCardItem__preco">R$ ${paleta.preco}</div>
-            <div class="PaletaCardItem__descricao">${paleta.descricao}</div>
-        </div>
-            <img class="PaletaCardItem__foto" src=${
-              paleta.foto
-            } alt=${`Paleta de ${paleta.sabor}`}/>
-    </div>`;
+  if (!paletaName){
+    //tratar usuario n digitar o nome(erro apenas no front)
+    showAlertSpan("Digite um sabor de paleta!", "danger");
+    return
   }
+
+  const selectedPaleta = listaDePaletas.find(
+    (elem) => elem.sabor === paletaName
+  );
+
+  if (!selectedPaleta) {
+    // tratar erro de não encontrar o nome(erro apenas no front);
+    showAlertSpan("O sabor de paleta não foi encontrado!", "danger");
+    return;
+  }
+
+  const queriedPaleta = await findPaletaById(selectedPaleta._id);
+
+  if (queriedPaleta.message != undefined) {
+    //tratar erro de não encontrar a paleta no db(mensagem vem da api);
+    showAlertSpan(queriedPaleta.message, "danger");
+    return;
+  } else {
+    printPaletaSearch(queriedPaleta);
+  }
+}
+
+const findPaletaById = async (id) => {
+  const response = await fetch(`${baseURL}/find-paleta/${id}`);
+  const paleta = await response.json();
+  return paleta;
+}
+
+const printPaletaSearch = async (paleta) => {
+  const chosenPaletaDiv = document.getElementById("chosenPaleta");
+
+  document.querySelector(".PaletaList").innerHTML = "";
+  document.getElementById("avaliablePaletas").style.display = "none";
+  document.getElementById("searchResult").style.display = "flex";
+
+  chosenPaletaDiv.innerHTML = `
+  <div class="PaletaCardItem">
+      <div>
+          <div class="PaletaCardItemSabor"> ${paleta.sabor}</div>
+          <div class="PaletaCardItemPreco">R$ ${paleta.preco.toFixed(2)}</div>
+          <div class="PaletaCardItemDescricao">${paleta.descricao}</div>
+          <div class="PaletaListItemActions Actions">
+            <button class="ActionsEdit Btn" onclick="openModal('${paleta._id}')">Editar</button>
+            <button class="ActionsDelete Btn" onclick="openDeleteModal('${paleta._id}')">Apagar</button>
+          </div>
+      </div>
+          <img class="PaletaCardItemFoto" src=${
+            paleta.foto
+          } alt=${`Paleta de ${paleta.sabor}`}/>
+  </div>`;
+
+  chosenPaletaDiv.insertAdjacentHTML("beforeend", 
+  `
+      <button class="DefaultButton" type="button" onclick="cleanSearchResult()">
+        Listar todas as paletas
+      </button>
+  `)
+
+  document.getElementById("namePaleta").value = "";
 };
 
-async function abrirModal(id = 0) {
-  if (id != 0) {
+const cleanSearchResult = () => {
+  document.getElementById("chosenPaleta").innerHTML = "";
+  printAllPaletas();
+}
+
+const openModal = async (id = "") => {
+  // console.log(`Abri o modal editar com o id ${id}`);
+  if (id != "") {
     //o usuario vai atualizar a paleta
-    document.querySelector("#title-header-modal").innerText =
+    document.querySelector("#titleHeaderModal").innerText =
       "Atualizar uma Paleta";
-    document.querySelector("#submit-modal-button").innerText = "Atualizar";
+    document.querySelector("#submitModalButton").innerText = "Atualizar";
 
     const response = await fetch(`${baseURL}/find-paleta/${id}`);
     const paleta = await response.json();
@@ -70,26 +136,26 @@ async function abrirModal(id = 0) {
     document.querySelector("#preco").value = paleta.preco;
     document.querySelector("#descricao").value = paleta.descricao;
     document.querySelector("#foto").value = paleta.foto;
-    document.querySelector("#id").value = paleta.id;
+    document.querySelector("#id").value = paleta._id;
   } else {
-    document.querySelector("#title-header-modal").innerText =
+    document.querySelector("#titleHeaderModal").innerText =
       "Cadastrar uma Paleta";
-    document.querySelector("#submit-modal-button").innerText = "Cadastrar";
+    document.querySelector("#submitModalButton").innerText = "Cadastrar";
   }
-  document.querySelector(".modal-overlay").style.display = "flex";
+  document.querySelector(".ModalOverlay").style.display = "flex";
 }
 
-function fecharModal() {
-  document.querySelector(".modal-overlay").style.display = "none";
+const fecharModal = () => {
+  document.querySelector(".ModalOverlay").style.display = "none";
 
   document.querySelector("#sabor").value = "";
   document.querySelector("#preco").value = undefined;
   document.querySelector("#foto").value = "";
   document.querySelector("#descricao").value = "";
-  document.querySelector("#id").value = 0;
+  document.querySelector("#id").value = "";
 }
 
-async function createPaleta() {
+const createPaleta = async () => {
   const id = document.querySelector("#id").value;
   const sabor = document.querySelector("#sabor").value;
   const preco = document.querySelector("#preco").value;
@@ -104,9 +170,10 @@ async function createPaleta() {
     preco,
   };
 
-  const modoEdicao = id != 0;
+  const modoEdicao = id != "";
 
-  const endpoint = baseURL + (modoEdicao ? `/update/${id}` : `/create`);
+  const endpoint =
+    baseURL + (modoEdicao ? `/update-paleta/${id}` : `/create-paleta`);
 
   const response = await fetch(endpoint, {
     method: modoEdicao ? "put" : "post",
@@ -118,62 +185,77 @@ async function createPaleta() {
   });
 
   const novaPaleta = await response.json();
-  console.log(novaPaleta.message);
-  if (novaPaleta.message) {
-    abrirModalAlerta(novaPaleta.message);
+
+  if (novaPaleta.message != undefined){
+    //tratar erro de mandar campos vazios tanto em cadastro quanto em atualização(mensagem vem da api)
+    showAlertSpan(novaPaleta.message, "danger");
+  } else {
+    let message = "Paleta cadastrada com sucesso!";
+    // mostrar mensagem de cadastro/atualização com sucesso(mensagem nao vem da api)
+    if (modoEdicao){
+      message = "Paleta atualizada com sucesso"
+    }
+    showAlertSpan(message, "success");
   }
 
-  document.querySelector("#paletaList").innerHTML = "";
-  findAllPaletas();
-  // recarregar a pagina(n vale a pena)
-  // window.location.reload();
+  const chosenPaletaDiv = document.getElementById("chosenPaleta");
+  chosenPaletaDiv.innerHTML = "";
+
+  printAllPaletas();
   fecharModal();
 }
 
-function abrirModalDelete(id) {
+const openDeleteModal = (id) => {
   // console.log(`Abri o modal delete com o id ${id}`);
-  document.querySelector("#overlay-delete").style.display = "flex";
+  document.querySelector("#overlayDelete").style.display = "flex";
 
-  document.querySelector(".btns_delete").insertAdjacentHTML(
+  document.querySelector(".BtnsDelete").insertAdjacentHTML(
     "beforeend",
     `
 
-  <button class="btn-delete_no btn-delete" onclick="fecharModalDelete()">Não</button>
-  <button class="btn-delete_yes btn-delete" onclick="deletePaleta(${id})">Sim</button>
+  <button class="BtnDeleteNo BtnDelete" onclick="closeDeleteModal()">Não</button>
+  <button class="BtnDeleteYes BtnDelete" onclick="deletePaleta('${id}')">Sim</button>
 
   `
   );
 }
 
-function fecharModalDelete() {
-  document.querySelector("#overlay-delete").style.display = "none";
-  document.querySelector(".btns_delete").innerHTML = "";
+const closeDeleteModal = () => {
+  document.querySelector("#overlayDelete").style.display = "none";
+  document.querySelector(".BtnsDelete").innerHTML = "";
 }
 
-async function deletePaleta(id) {
-  const response = await fetch(`${baseURL}/delete/${id}`, {
+const deletePaleta = async (id) => {
+  console.log(`Vou tentar deletar a de id ${id}`);
+  const response = await fetch(`${baseURL}/delete-paleta/${id}`, {
     method: "delete",
     mode: "cors",
   });
   const result = await response.json();
-  let alerta = await result.message;
-  abrirModalAlerta(alerta);
-  console.log(alerta);
-  fecharModalDelete();
-  document.getElementById("paletaList").innerHTML = "";
-  findAllPaletas();
+
+  if (result.message != undefined){
+    //tratar erro de n encontrar a paleta para deletar (mensagem vem da api)
+    showAlertSpan(result.message, "danger");
+  } else {
+    //mostrar mensagem de deleção com sucesso (mensagem nao vem da api)
+    showAlertSpan("Paleta deletada com sucesso!", "success");
+  }
+
+  const chosenPaletaDiv = document.getElementById("chosenPaleta");
+  chosenPaletaDiv.innerHTML = "";
+  closeDeleteModal();
+  printAllPaletas();
 }
 
-function abrirModalAlerta(message){
-  document.getElementById("overlay-alerts").style.display = "flex";
-  document.getElementById("alert-message").innerHTML = message;
-  setTimeout(function(){
-    fecharModalAlerta();
-  }, 3000)
-}
-
-
-function fecharModalAlerta(){
-  document.getElementById("alert-message").innerHTML = "";
-  document.getElementById("overlay-alerts").style.display = "none";
+const showAlertSpan = (message, type) => {
+  let span = document.getElementById("msgAlert")
+  span.innerText = message;
+  span.classList.add(type);
+  span.style.display = "flex";
+  setTimeout(function() {
+    span.style.display = "none";
+    span.innerText = "";
+    //zerar a classe tbm
+    span.className = "";
+  }, 5000);
 }

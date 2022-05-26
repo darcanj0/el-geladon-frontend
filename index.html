@@ -4,70 +4,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/style2.css" />
+    <link rel="shortcut icon" type="image/svg" href="./assets/images/logo.svg">
     <title>El Geladon</title>
   </head>
   <body>
     <section class="Home">
-      <div class="Home__header Header">
+      <div class="HomeHeader Header">
         <div class="row">
-          <div class="Header__logo Logo">
+          <div class="HeaderLogo Logo">
             <img
               src="./assets/images/logo.svg"
               width="70px"
               alt="Logo El Geladon"
-              class="Logo__icone"
+              class="LogoIcon"
             />
-            <span class="Logo__titulo"> El Geladon </span>
+            <span class="LogoTitle"> El Geladon </span>
           </div>
 
-          <div class="Header__opcoes Opcoes">
-            <div class="Opcoes__sacola Sacola">
-              <img
-                src="./assets/images/icons/sacola.svg"
-                width="40px"
-                class="Sacola__icone"
-                alt="Sacola de compras"
-              />
-            </div>
+          <div id="ChoosePaletaSpace">
+            <input
+              type="text"
+              id="namePaleta"
+              placeholder="Busque uma paleta pelo sabor"
+            />
+            <button
+              id="searchByPaletaNameButton"
+              class="DefaultButton"
+              onclick="findPaletaByName()"
+            >
+            <i class="bi bi-search"></i>
+            </button>
           </div>
         </div>
       </div>
 
-      <section class="button-modal-create">
-        <button class="default-button" type="button" onclick="abrirModal()">
+      <section class="Options">
+        <div id="spanContainer">
+          <span id="msgAlert"></span>
+        </div>
+        <button class="DefaultButton" type="button" onclick="openModal()">
           Cadastrar Paleta
         </button>
       </section>
 
-      <h2>Pesquisar Paleta</h2>
-      <div class="paleta-escolhida-espaco">
-        <div id="paleta-escolhida-input-espaco">
-          <input
-            type="number"
-            id="idPaleta"
-            placeholder="Digite o ID da paleta e clique em 'Escolher'"
-          />
-          <button
-            id="idPaletaButton"
-            class="default-button"
-            onclick="findByIdPaletas()"
-          >
-            Escolher
-          </button>
-        </div>
-
-        <div id="paletaEscolhida"></div>
+      <h2 id="searchResult">Resultado da busca:</h2>
+      <div class="ChosenPaletaSpace">
+        <div id="chosenPaleta"></div>
       </div>
 
-      <section class="modal-overlay" id="overlay">
-        <div class="modal">
-          <div class="modal-header">
-            <h2 id="title-header-modal">Cadastrar uma Paleta</h2>
-            <a onclick="fecharModal()" class="close-modal">X</a>
+      <section class="ModalOverlay" id="overlay">
+        <div class="Modal">
+          <div class="ModalHeader">
+            <h2 id="titleHeaderModal">Cadastrar uma Paleta</h2>
+            <a onclick="fecharModal()" class="CloseModal">X</a>
           </div>
 
-          <div class="modal-body">
+          <div class="ModalBody">
             <div>
               <input type="hidden" id="id" />
               <input
@@ -98,7 +92,7 @@
                 placeholder="Link da imagem da Paleta"
                 required
               />
-              <button onclick="createPaleta()" id="submit-modal-button">
+              <button onclick="createPaleta()" id="submitModalButton">
                 Cadastrar
               </button>
             </div>
@@ -106,35 +100,22 @@
         </div>
       </section>
 
-      <section class="modal-overlay" id="overlay-delete">
-        <div class="modal">
-          <div class="modal-header">
-            <h2 id="title-header-modal">Confirmação</h2>
-            <a onclick="fecharModalDelete()" class="close-modal">X</a>
+      <section class="ModalOverlay" id="overlayDelete">
+        <div class="Modal">
+          <div class="ModalHeader">
+            <h2 id="titleHeaderModal">Confirmação</h2>
+            <a onclick="closeDeleteModal()" class="CloseModal">X</a>
           </div>
           <!-- cuidado aqui -->
-          <div class="modal-body-delete">
+          <div class="ModalBodyDelete">
             <p>Deseja realmente apagar essa paleta?</p>
-            <div class="btns_delete"></div>
+            <div class="BtnsDelete"></div>
           </div>
         </div>
       </section>
-
-      <section class="modal-overlay" id="overlay-alerts">
-        <div class="modal">
-          <div class="modal-header">
-            <h2>Alerta!</h2>
-            <a onclick="fecharModalAlerta()" class="close-modal">X</a>
-          </div>
-
-          <div class="modal-body-alert">
-            <p id="alert-message"></p>
-          </div>
-        </div>
-      </section>
-      <h2>Paletas Disponíveis:</h2>
-      <div class="Home__container">
-        <div id="paletaList" class="PaletaLista"></div>
+      <h2 id="avaliablePaletas">Paletas Disponíveis:</h2>
+      <div class="HomeContainer">
+        <div id="paletaList" class="PaletaList"></div>
       </div>
     </section>
 
