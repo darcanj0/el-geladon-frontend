@@ -43,171 +43,6 @@ section.Home > h2 {
   color: #000000;
 }
 
-div.Home__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media (max-width: 350px) {
-  div.Home__container {
-    justify-content: unset;
-  }
-}
-
-.PaletaLista {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 25px 50px;
-}
-
-@media (max-width: 1220px) {
-  div.PaletaLista {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 840px) {
-  div.PaletaLista {
-    grid-template-columns: 1fr;
-  }
-}
-
-.PaletaCardItem,
-.PaletaListaItem {
-  font-family: "Exo";
-  background-color: rgb(255, 255, 255, 0.3);
-  border-radius: 10px;
-  padding: 10px;
-  width: 315px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.PaletaCardItem {
-  margin: 20px 0;
-  height: 150px;
-  width: auto;
-}
-
-@media (max-width: 400px) {
-  .PaletaCardItem,
-  .PaletaListaItem {
-    width: 210px;
-    height: 180px;
-  }
-}
-
-.PaletaCardItem > div,
-.PaletaListaItem > div {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.PaletaCardItem > div,
-.PaletaListaItem__sabor {
-  margin: 0.2rem;
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 100%;
-}
-
-.PaletaCardItem__descricao,
-.PaletaListaItem__descricao {
-  font-size: 0.85rem;
-}
-
-.PaletaCardItem__preco,
-.PaletaListaItem__preco {
-  color: #9400d3;
-}
-
-.Acoes {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 0.5rem;
-}
-
-.Acoes__editar {
-  color: #0097ce;
-  border: 2px solid #0097ce;
-}
-
-.Acoes__editar:hover {
-  color: #ffffff;
-  background-color: #0097ce;
-}
-
-.Acoes__apagar {
-  color: #ca2626ec;
-  border: 2px solid #ca2626ec;
-}
-
-.Acoes__apagar:hover {
-  color: #ffffff;
-  background-color: #ca2626ec;
-}
-
-.btn {
-  border-radius: 0.3rem;
-  padding: 0.5rem;
-  max-width: 280px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.87rem;
-  background-color: transparent;
-  cursor: pointer;
-  width: 40%;
-  transition: all 0.3s ease-out;
-}
-
-.PaletaListaItem__foto {
-  height: 150px;
-  margin-right: -60px;
-}
-
-.paleta-escolhida-espaco {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-
-#namePaleta {
-  padding: 0.5rem;
-  width: 315px;
-  border: none;
-  border-radius: 0.2rem;
-}
-
-.default-button {
-  background-color: transparent;
-  border: 2px solid #9400d3;
-  padding: 0.4rem;
-  color: #9400d3;
-  border-radius: 0.2rem;
-  width: 330px;
-  margin-top: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.default-button:hover {
-  background-color: #9400d3;
-  color: #ffffff;
-}
-
-#paleta-escolhida-input-espaco {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
 .Header {
   max-width: 1110px;
   margin: 0 auto 25px auto;
@@ -222,6 +57,14 @@ div.Home__container {
   margin: 20px 0 35px 0;
 }
 
+@media (max-width: 840px){
+  .row{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .Logo {
   display: flex;
   align-items: center;
@@ -231,48 +74,59 @@ div.Home__container {
   height: 45px;
 }
 
-.Logo__titulo {
+.LogoTitle {
   position: absolute;
   left: 55px;
   font-weight: 700;
   font-size: 2.5em;
 }
 
-.Logo__icone {
+.LogoIcon {
   position: absolute;
   left: -20px;
   top: 3px;
 }
 
-.Sacola {
-  position: relative;
-}
-
-.Sacola__icone {
-  cursor: pointer;
-}
-
-.Sacola__badge {
-  background-color: #ff0000;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  position: absolute;
-  color: #ffffff;
-  font-size: 0.9em;
+.Options {
+  width: 80%;
+  margin: auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  bottom: 0;
-  right: 0;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#spanContainer {
+  width: 40%;
+  text-align: center;
+  z-index: 99999;
+  padding: 0.4rem;
+}
+
+#msgAlert {
+  width: 100%;
+  z-index: 99999;
+  padding: 0.4rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+}
+
+.success {
+  background-color: #a4ffa4;
+  color: #08750d;
+  border: 2px solid #08750d;
+}
+
+.danger {
+  background-color: #ffa4a4;
+  color: #690000;
+  border: 2px solid #690000;
 }
 
 @media (max-width: 1220px) {
   .Header {
     max-width: 720px;
   }
+  
 }
 
 @media (max-width: 840px) {
@@ -290,12 +144,192 @@ div.Home__container {
     column-gap: 20px;
   }
 
-  .Logo__titulo {
+  .LogoTitle {
     font-size: 1.5em;
   }
 }
 
-.modal-overlay {
+div.HomeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 350px) {
+  div.HomeContainer {
+    justify-content: unset;
+  }
+}
+
+.PaletaList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px 50px;
+}
+
+@media (max-width: 1220px) {
+  div.PaletaList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 840px) {
+  div.PaletaList {
+    grid-template-columns: 1fr;
+  }
+}
+
+.PaletaCardItem,
+.PaletaListItem {
+  font-family: "Exo";
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  width: 315px;
+  height: 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
+div#chosenPaleta {
+  width: 315px;
+  display: contents;
+}
+
+.PaletaCardItem {
+  margin: 20px 0;
+}
+
+@media (max-width: 400px) {
+  .PaletaCardItem,
+  .PaletaListItem {
+    width: 210px;
+    height: 180px;
+  }
+}
+
+.PaletaCardItem > div,
+.PaletaListItem > div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.PaletaCardItemSabor,
+.PaletaListItemSabor {
+  margin: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.PaletaCardItemDescricao,
+.PaletaListItemDescricao {
+  font-size: 0.85rem;
+}
+
+.PaletaCardItemPreco,
+.PaletaListItemPreco {
+  color: #9400d3;
+}
+
+.Actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  /* margin-top: 0.5rem; */
+}
+
+.ActionsEdit {
+  color: #0097ce;
+  border: 2px solid #0097ce;
+}
+
+.ActionsEdit:hover {
+  color: #ffffff;
+  background-color: #0097ce;
+}
+
+.ActionsDelete {
+  color: #ca2626ec;
+  border: 2px solid #ca2626ec;
+}
+
+.ActionsDelete:hover {
+  color: #ffffff;
+  background-color: #ca2626ec;
+}
+
+.Btn {
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  max-width: 280px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.87rem;
+  background-color: transparent;
+  cursor: pointer;
+  width: 40%;
+  transition: all 0.3s ease-out;
+}
+
+.PaletaCardItemFoto,
+.PaletaListItemFoto {
+  height: 150px;
+  margin-right: -60px;
+}
+
+#searchResult{
+  display: none;
+}
+
+.ChosenPaletaSpace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+#ChoosePaletaSpace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  width: 300px;
+}
+
+#namePaleta {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  width: 100%;
+}
+
+.DefaultButton {
+  background-color: transparent;
+  border: 2px solid #9400d3;
+  padding: 0.4rem;
+  color: #9400d3;
+  border-radius: 0.2rem;
+  width: 330px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.DefaultButton:hover {
+  background-color: #9400d3;
+  color: #ffffff;
+}
+
+#searchByPaletaNameButton {
+  height: fit-content;
+  width: fit-content;
+  padding: .3em;
+}
+
+.ModalOverlay {
   background-color: #00000050;
   width: 100vw;
   height: 100vh;
@@ -309,7 +343,7 @@ div.Home__container {
   overflow-y: auto;
 }
 
-.modal {
+.Modal {
   margin: 1rem;
   width: 100%;
   max-width: 600px;
@@ -321,7 +355,7 @@ div.Home__container {
   overflow: hidden;
 }
 
-.modal-header {
+.ModalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -333,7 +367,7 @@ div.Home__container {
   padding: 1rem;
 }
 
-.close-modal {
+.CloseModal {
   text-decoration: none;
   color: #000000;
   font-size: 1.5rem;
@@ -342,40 +376,40 @@ div.Home__container {
   cursor: pointer;
 }
 
-.close-modal:hover {
+.CloseModal:hover {
   transform: scale(1);
 }
 
-.modal-body {
+.ModalBody {
   padding: 0.5rem 1rem;
   font-size: large;
   height: 90%;
 }
 
-.modal-body-delete > p {
+.ModalBodyDelete > p {
   font-size: 1.5rem;
   padding: 2rem;
 }
 
-.modal-body-delete {
+.ModalBodyDelete {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.modal-body-delete > .btns_delete {
+.ModalBodyDelete > .BtnsDelete {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
 }
 
-.modal-body div {
+.ModalBody div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.modal-body div input,
+.ModalBody div input,
 textarea {
   width: 100%;
   padding: 0.5rem;
@@ -386,7 +420,7 @@ textarea {
   border-radius: 0.3rem;
 }
 
-.modal-body div #submit-modal-button {
+.ModalBody div #submitModalButton {
   padding: 0.5rem;
   width: 30%;
   font-size: 1rem;
@@ -398,17 +432,12 @@ textarea {
   transition: all 0.2s ease-out;
 }
 
-.modal-body div #submit-modal-button:hover {
+.ModalBody div #submitModalButton:hover {
   background-color: #0097ce;
   color: #ffffff;
 }
 
-.button-modal-create {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-delete {
+.BtnDelete {
   padding: 0.5rem;
   width: 30%;
   font-size: 1rem;
@@ -418,34 +447,22 @@ textarea {
   transition: all 0.2s ease-out;
 }
 
-.btn-delete_no {
+.BtnDeleteNo {
   border: 2px solid #ca2626ec;
   color: #ca2626ec;
 }
 
-.btn-delete_no:hover {
+.BtnDeleteNo:hover {
   background-color: #ca2626ec;
   color: #ffffff;
 }
 
-.btn-delete_yes {
+.BtnDeleteYes {
   border: 2px solid #0bb614;
   color: #0bb614;
 }
 
-.btn-delete_yes:hover {
+.BtnDeleteYes:hover {
   background-color: #0bb614;
   color: #ffffff;
-}
-
-.modal-body-alert{
-  height: 236px;
-  display: flex;
-  align-items: center;
-}
-
-#alert-message {
-  font-size: 1.5rem;
-  width: 100%;
-  text-align: center;
 }
