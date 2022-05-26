@@ -49,7 +49,7 @@ section.Home > h2 {
   position: relative;
 }
 
-.row {
+.Row {
   display: flex;
   gap: 1em;
   width: 100%;
@@ -58,7 +58,7 @@ section.Home > h2 {
 }
 
 @media (max-width: 840px) {
-  .row {
+  .Row {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -110,13 +110,13 @@ section.Home > h2 {
   border-radius: 0.3rem;
 }
 
-.success {
+.Success {
   background-color: #a4ffa4;
   color: #08750d;
   border: 2px solid #08750d;
 }
 
-.danger {
+.Danger {
   background-color: #ffa4a4;
   color: #690000;
   border: 2px solid #690000;
@@ -139,7 +139,7 @@ section.Home > h2 {
     max-width: 250px;
   }
 
-  .row {
+  .Row {
     column-gap: 20px;
   }
 

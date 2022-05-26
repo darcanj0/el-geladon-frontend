@@ -9,7 +9,7 @@ const fetchAllPaletasAndUpdateArray = async () => {
 
   if (paletas.message != undefined) {
     //tratar erro de não achar nenhuma paleta no db(mensagem vem da api)
-    showAlertSpan(paletas.message, "danger");
+    showAlertSpan(paletas.message, "Danger");
   }
 
   arrayPaletas = paletas;
@@ -58,7 +58,7 @@ const findPaletaByName = async () => {
 
   if (!paletaName) {
     //tratar usuario n digitar o nome(erro apenas no front)
-    showAlertSpan("Digite um sabor de paleta!", "danger");
+    showAlertSpan("Digite um sabor de paleta!", "Danger");
     return;
   }
 
@@ -66,7 +66,7 @@ const findPaletaByName = async () => {
 
   if (!selectedPaleta) {
     // tratar erro de não encontrar o nome(erro apenas no front);
-    showAlertSpan("O sabor de paleta não foi encontrado!", "danger");
+    showAlertSpan("O sabor de paleta não foi encontrado!", "Danger");
     return;
   }
 
@@ -74,7 +74,7 @@ const findPaletaByName = async () => {
 
   if (queriedPaleta.message != undefined) {
     //tratar erro de não encontrar a paleta no db(mensagem vem da api);
-    showAlertSpan(queriedPaleta.message, "danger");
+    showAlertSpan(queriedPaleta.message, "Danger");
     return;
   } else {
     printPaletaSearch(queriedPaleta);
@@ -198,14 +198,14 @@ const createPaleta = async () => {
 
   if (novaPaleta.message != undefined) {
     //tratar erro de mandar campos vazios tanto em cadastro quanto em atualização(mensagem vem da api)
-    showAlertSpan(novaPaleta.message, "danger");
+    showAlertSpan(novaPaleta.message, "Danger");
   } else {
     let message = "Paleta cadastrada com sucesso!";
     // mostrar mensagem de cadastro/atualização com sucesso(mensagem nao vem da api)
     if (modoEdicao) {
       message = "Paleta atualizada com sucesso";
     }
-    showAlertSpan(message, "success");
+    showAlertSpan(message, "Success");
   }
 
   const chosenPaletaDiv = document.getElementById("chosenPaleta");
@@ -245,10 +245,10 @@ const deletePaleta = async (id) => {
 
   if (result.message != undefined) {
     //tratar erro de n encontrar a paleta para deletar (mensagem vem da api)
-    showAlertSpan(result.message, "danger");
+    showAlertSpan(result.message, "Danger");
   } else {
     //mostrar mensagem de deleção com sucesso (mensagem nao vem da api)
-    showAlertSpan("Paleta deletada com sucesso!", "success");
+    showAlertSpan("Paleta deletada com sucesso!", "Success");
   }
 
   const chosenPaletaDiv = document.getElementById("chosenPaleta");
