@@ -12,7 +12,7 @@ const fetchAllPaletasAndUpdateArray = async () => {
     showAlertSpan(paletas.message, "danger");
   }
 
-  listaDePaletas = paletas;
+  arrayPaletas = paletas;
 
   return paletas;
 }
@@ -56,7 +56,7 @@ const findPaletaByName = async () => {
     return
   }
 
-  const selectedPaleta = listaDePaletas.find(
+  const selectedPaleta = arrayPaletas.find(
     (elem) => elem.sabor === paletaName
   );
 
