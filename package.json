@@ -1,0 +1,31 @@
+{
+  "name": "el-geladon-api",
+  "version": "1.0.0",
+  "description": "This project was developed in the third module of my webdev course at BlueEdTech and it has educational purposes.\r The project is about a fictional mexican paletas store named 'El Geladon'. This repository contains the API part of the website.",
+  "main": "./src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server",
+    "dev": "nodemon src/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darcanj0/el-geladon-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darcanj0/el-geladon-api/issues"
+  },
+  "homepage": "https://github.com/darcanj0/el-geladon-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "sucrase": "^3.21.0"
+  }
+}
