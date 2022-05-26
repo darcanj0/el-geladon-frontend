@@ -7,7 +7,7 @@ const fetchAllPaletasAndUpdateArray = async () => {
 
   const paletas = await response.json();
 
-  if(paletas.message != undefined){
+  if (paletas.message != undefined) {
     //tratar erro de não achar nenhuma paleta no db(mensagem vem da api)
     showAlertSpan(paletas.message, "danger");
   }
@@ -15,9 +15,9 @@ const fetchAllPaletasAndUpdateArray = async () => {
   arrayPaletas = paletas;
 
   return paletas;
-}
+};
 
-const printAllPaletas = async() => {
+const printAllPaletas = async () => {
   const paletas = await fetchAllPaletasAndUpdateArray();
 
   document.getElementById("avaliablePaletas").style.display = "flex";
@@ -34,31 +34,35 @@ const printAllPaletas = async() => {
             <div class="PaletaListItemPreco">RS ${paleta.preco.toFixed(2)}</div>
             <div class="PaletaListItemDescricao">${paleta.descricao}</div>
             <div class="PaletaListItemActions Actions">
-              <button class="ActionsEdit Btn" onclick="openModal('${paleta._id}')">Editar</button>
-              <button class="ActionsDelete Btn" onclick="openDeleteModal('${paleta._id}')">Apagar</button>
+              <button class="ActionsEdit Btn" onclick="openModal('${
+                paleta._id
+              }')">Editar</button>
+              <button class="ActionsDelete Btn" onclick="openDeleteModal('${
+                paleta._id
+              }')">Apagar</button>
             </div>
           </div>
-          <img class="PaletaListItemFoto" src=${paleta.foto} alt="Paleta de ${paleta.sabor}" />
+          <img class="PaletaListItemFoto" src=${paleta.foto} alt="Paleta de ${
+        paleta.sabor
+      }" />
         </div>
     `
     );
   });
-}
+};
 
 printAllPaletas();
 
 const findPaletaByName = async () => {
   const paletaName = document.getElementById("namePaleta").value;
 
-  if (!paletaName){
+  if (!paletaName) {
     //tratar usuario n digitar o nome(erro apenas no front)
     showAlertSpan("Digite um sabor de paleta!", "danger");
-    return
+    return;
   }
 
-  const selectedPaleta = arrayPaletas.find(
-    (elem) => elem.sabor === paletaName
-  );
+  const selectedPaleta = arrayPaletas.find((elem) => elem.sabor === paletaName);
 
   if (!selectedPaleta) {
     // tratar erro de não encontrar o nome(erro apenas no front);
@@ -75,13 +79,13 @@ const findPaletaByName = async () => {
   } else {
     printPaletaSearch(queriedPaleta);
   }
-}
+};
 
 const findPaletaById = async (id) => {
   const response = await fetch(`${baseURL}/find-paleta/${id}`);
   const paleta = await response.json();
   return paleta;
-}
+};
 
 const printPaletaSearch = async (paleta) => {
   const chosenPaletaDiv = document.getElementById("chosenPaleta");
@@ -97,8 +101,12 @@ const printPaletaSearch = async (paleta) => {
           <div class="PaletaCardItemPreco">R$ ${paleta.preco.toFixed(2)}</div>
           <div class="PaletaCardItemDescricao">${paleta.descricao}</div>
           <div class="PaletaListItemActions Actions">
-            <button class="ActionsEdit Btn" onclick="openModal('${paleta._id}')">Editar</button>
-            <button class="ActionsDelete Btn" onclick="openDeleteModal('${paleta._id}')">Apagar</button>
+            <button class="ActionsEdit Btn" onclick="openModal('${
+              paleta._id
+            }')">Editar</button>
+            <button class="ActionsDelete Btn" onclick="openDeleteModal('${
+              paleta._id
+            }')">Apagar</button>
           </div>
       </div>
           <img class="PaletaCardItemFoto" src=${
@@ -106,12 +114,14 @@ const printPaletaSearch = async (paleta) => {
           } alt=${`Paleta de ${paleta.sabor}`}/>
   </div>`;
 
-  chosenPaletaDiv.insertAdjacentHTML("beforeend", 
-  `
+  chosenPaletaDiv.insertAdjacentHTML(
+    "beforeend",
+    `
       <button class="DefaultButton" type="button" onclick="cleanSearchResult()">
         Listar todas as paletas
       </button>
-  `)
+  `
+  );
 
   document.getElementById("namePaleta").value = "";
 };
@@ -119,7 +129,7 @@ const printPaletaSearch = async (paleta) => {
 const cleanSearchResult = () => {
   document.getElementById("chosenPaleta").innerHTML = "";
   printAllPaletas();
-}
+};
 
 const openModal = async (id = "") => {
   // console.log(`Abri o modal editar com o id ${id}`);
@@ -143,7 +153,7 @@ const openModal = async (id = "") => {
     document.querySelector("#submitModalButton").innerText = "Cadastrar";
   }
   document.querySelector(".ModalOverlay").style.display = "flex";
-}
+};
 
 const fecharModal = () => {
   document.querySelector(".ModalOverlay").style.display = "none";
@@ -153,7 +163,7 @@ const fecharModal = () => {
   document.querySelector("#foto").value = "";
   document.querySelector("#descricao").value = "";
   document.querySelector("#id").value = "";
-}
+};
 
 const createPaleta = async () => {
   const id = document.querySelector("#id").value;
@@ -186,14 +196,14 @@ const createPaleta = async () => {
 
   const novaPaleta = await response.json();
 
-  if (novaPaleta.message != undefined){
+  if (novaPaleta.message != undefined) {
     //tratar erro de mandar campos vazios tanto em cadastro quanto em atualização(mensagem vem da api)
     showAlertSpan(novaPaleta.message, "danger");
   } else {
     let message = "Paleta cadastrada com sucesso!";
     // mostrar mensagem de cadastro/atualização com sucesso(mensagem nao vem da api)
-    if (modoEdicao){
-      message = "Paleta atualizada com sucesso"
+    if (modoEdicao) {
+      message = "Paleta atualizada com sucesso";
     }
     showAlertSpan(message, "success");
   }
@@ -203,7 +213,7 @@ const createPaleta = async () => {
 
   printAllPaletas();
   fecharModal();
-}
+};
 
 const openDeleteModal = (id) => {
   // console.log(`Abri o modal delete com o id ${id}`);
@@ -218,12 +228,12 @@ const openDeleteModal = (id) => {
 
   `
   );
-}
+};
 
 const closeDeleteModal = () => {
   document.querySelector("#overlayDelete").style.display = "none";
   document.querySelector(".BtnsDelete").innerHTML = "";
-}
+};
 
 const deletePaleta = async (id) => {
   console.log(`Vou tentar deletar a de id ${id}`);
@@ -233,7 +243,7 @@ const deletePaleta = async (id) => {
   });
   const result = await response.json();
 
-  if (result.message != undefined){
+  if (result.message != undefined) {
     //tratar erro de n encontrar a paleta para deletar (mensagem vem da api)
     showAlertSpan(result.message, "danger");
   } else {
@@ -245,17 +255,17 @@ const deletePaleta = async (id) => {
   chosenPaletaDiv.innerHTML = "";
   closeDeleteModal();
   printAllPaletas();
-}
+};
 
 const showAlertSpan = (message, type) => {
-  let span = document.getElementById("msgAlert")
+  let span = document.getElementById("msgAlert");
   span.innerText = message;
   span.classList.add(type);
   span.style.display = "flex";
-  setTimeout(function() {
+  setTimeout(function () {
     span.style.display = "none";
     span.innerText = "";
     //zerar a classe tbm
     span.className = "";
   }, 5000);
-}
+};

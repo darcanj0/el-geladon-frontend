@@ -57,8 +57,8 @@ section.Home > h2 {
   margin: 20px 0 35px 0;
 }
 
-@media (max-width: 840px){
-  .row{
+@media (max-width: 840px) {
+  .row {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -126,7 +126,6 @@ section.Home > h2 {
   .Header {
     max-width: 720px;
   }
-  
 }
 
 @media (max-width: 840px) {
@@ -279,7 +278,7 @@ div#chosenPaleta {
   margin-right: -60px;
 }
 
-#searchResult{
+#searchResult {
   display: none;
 }
 
@@ -326,7 +325,7 @@ div#chosenPaleta {
 #searchByPaletaNameButton {
   height: fit-content;
   width: fit-content;
-  padding: .3em;
+  padding: 0.3em;
 }
 
 .ModalOverlay {
