@@ -85,6 +85,33 @@ section.Home > h2 {
   position: absolute;
   left: -20px;
   top: 3px;
+  animation: logoAnimation 10s infinite;
+}
+
+@keyframes logoAnimation {
+  20% {
+    transform: rotate(0deg);
+  }
+
+  22%{
+    transform: rotate(-10deg);
+  }
+
+  24%{
+    transform: rotate(0deg);
+  }
+
+  26% {
+    transform: rotate(10deg);
+  }
+
+  28% {
+    transform: rotate(0deg);
+  }
+
+  100%{
+    transform: rotate(0deg);
+  }
 }
 
 .Options {
@@ -108,6 +135,25 @@ section.Home > h2 {
   padding: 0.4rem;
   font-weight: 600;
   border-radius: 0.3rem;
+  animation: alertMessage 5.2s normal;
+}
+
+@keyframes alertMessage {
+  0% {
+    opacity: 0%;
+  }
+
+  10% {
+    opacity: 100%;
+  }
+
+  90% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
 }
 
 .Success {
@@ -276,6 +322,20 @@ div#chosenPaleta {
 .PaletaListItemFoto {
   height: 150px;
   margin-right: -60px;
+  animation: paletaImage 0.3s normal ease-out;
+}
+
+@keyframes paletaImage {
+  0% {
+    margin-right: -120px;
+    opacity: 20%;
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    margin-right: -60px;
+    opacity: 100%;
+  }
 }
 
 #searchResult {
