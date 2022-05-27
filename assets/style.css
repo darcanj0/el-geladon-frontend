@@ -118,54 +118,8 @@ section.Home > h2 {
   width: 80%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-#spanContainer {
-  width: 40%;
-  text-align: center;
-  z-index: 99999;
-  padding: 0.4rem;
-}
-
-#msgAlert {
-  width: 100%;
-  z-index: 99999;
-  padding: 0.4rem;
-  font-weight: 600;
-  border-radius: 0.3rem;
-  animation: alertMessage 5.2s normal;
-}
-
-@keyframes alertMessage {
-  0% {
-    opacity: 0%;
-  }
-
-  10% {
-    opacity: 100%;
-  }
-
-  90% {
-    opacity: 100%;
-  }
-
-  100% {
-    opacity: 0%;
-  }
-}
-
-.Success {
-  background-color: #a4ffa4;
-  color: #08750d;
-  border: 2px solid #08750d;
-}
-
-.Danger {
-  background-color: #ffa4a4;
-  color: #690000;
-  border: 2px solid #690000;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1220px) {
@@ -524,4 +478,56 @@ textarea {
 .BtnDeleteYes:hover {
   background-color: #0bb614;
   color: #ffffff;
+}
+
+#spanContainer {
+  min-width: 40vw;
+  background-color: #00000050;
+  height: max-content;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  align-items: center;
+}
+
+#msgAlert {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.4rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  animation: alertMessage 5.2s normal ease-in;
+}
+
+@keyframes alertMessage {
+  0% {
+    margin-bottom: -40px;
+  }
+
+  5% {
+    margin-bottom: 0px;
+  }
+
+  85% {
+    margin-bottom: 0px;
+  }
+
+  100% {
+    margin-bottom: -60px;
+  }
+}
+
+.Success {
+  background-color: #a4ffa4;
+  color: #08750d;
+  border: 2px solid #08750d;
+}
+
+.Danger {
+  background-color: #ffa4a4;
+  color: #690000;
+  border: 2px solid #690000;
 }
