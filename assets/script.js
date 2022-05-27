@@ -236,7 +236,7 @@ const closeDeleteModal = () => {
 };
 
 const deletePaleta = async (id) => {
-  console.log(`Vou tentar deletar a de id ${id}`);
+  // console.log(`Vou tentar deletar a de id ${id}`);
   const response = await fetch(`${baseURL}/delete-paleta/${id}`, {
     method: "delete",
     mode: "cors",
