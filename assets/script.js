@@ -77,14 +77,14 @@ class Requisitions {
       method: "delete",
       mode: "cors",
     });
-    const result = await response.json();
 
-    if (result.message != undefined) {
-      //tratar erro de n encontrar a paleta para deletar (mensagem vem da api)
-      showAlertSpan(result.message, "Danger");
-    } else {
+    if (response.status === 204) {
       //mostrar mensagem de deleção com sucesso (mensagem nao vem da api)
       showAlertSpan("Paleta deletada com sucesso!", "Success");
+    } else {
+      const result = await response.json();
+      //tratar erro de n encontrar a paleta para deletar (mensagem vem da api)
+      showAlertSpan(result.message, "Danger");
     }
 
     const chosenPaletaDiv = document.getElementById("chosenPaleta");
