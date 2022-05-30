@@ -95,7 +95,7 @@ class Requisitions {
 }
 
 //Auxiliary variables
-const baseURL = "https://el-geladon-api-v2.onrender.com";
+const baseURL = "https://el-geladon-api-v2.onrender.com/paletas";
 // const baseURL = "http://localhost:3001/paletas";
 let arrayPaletas = [];
 const requisitions = new Requisitions();
