@@ -17,3 +17,11 @@ Front End vanilla Link on Vercel: https://el-geladon-frontend-vanilla.vercel.app
 ## API repository
 
 https://github.com/darcanj0/el-geladon-api
+
+## Stacks
+
+<ul>
+  <li>JavaScript Vanilla</li>
+  <li>HTML5</li>
+  <li>CSS3</li>
+</ul>
